@@ -37,6 +37,7 @@ function cityTemp(response) {
     let temp = Number(Math.round(response.data.main.temp));
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = `${temp}`;
+    document.querySelector("#current-city").innerHTML = response.data.name;
 }
 axios.get(apiURL(city)).then(cityTemp);
 
