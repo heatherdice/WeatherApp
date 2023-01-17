@@ -9,3 +9,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+span {
+    text-transform: capitalize;
+}

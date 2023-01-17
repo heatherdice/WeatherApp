@@ -32,14 +32,24 @@ function apiURL(city) {
     return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 }
 
-// display current temp of city
+// display current temp, name, description of city
 function cityTemp(response) {
     let temp = Number(Math.round(response.data.main.temp));
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = `${temp}`;
     document.querySelector("#current-city").innerHTML = response.data.name;
+    document.querySelector("#description").innerHTML = response.data.weather[0].description;
 }
 axios.get(apiURL(city)).then(cityTemp);
+
+/* draft function to get precipitation data
+function cityPrecipitation(response) {
+    let rain = response.data.rain;
+    let currentRain = document.querySelector("#current-rain");
+    currentRain.innerHTML = $`{rain}`;
+}
+axios.get(apiURL(city).then(cityPrecipitation));
+*/
 
 // get current city name and temp
 function getCurrentCity(event) {
