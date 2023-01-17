@@ -10,6 +10,6 @@ body {
     background-repeat: no-repeat;
 }
 
-span {
+li {
     text-transform: capitalize;
 }

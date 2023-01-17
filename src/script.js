@@ -44,15 +44,6 @@ function cityTemp(response) {
 }
 axios.get(apiURL(city)).then(cityTemp);
 
-/* draft function to get precipitation data - look into this! may only show precipitation if it's raining
-function cityPrecipitation(response) {
-    let rain = response.data.rain;
-    let currentRain = document.querySelector("#current-rain");
-    currentRain.innerHTML = $`{rain}`;
-}
-axios.get(apiURL(city).then(cityPrecipitation));
-*/
-
 // get current city name and temp
 function getCurrentCity(event) {
     event.preventDefault();
@@ -64,7 +55,6 @@ function getCurrentCity(event) {
         
     }, err => console.log(err))
 }
-// get current city name & temp
 let form2 = document.querySelector("#button-addon");
 form2.addEventListener("click", getCurrentCity);
 
