@@ -10,6 +10,7 @@ body {
     background-repeat: no-repeat;
 }
 
-li {
+li:first-letter {
     text-transform: capitalize;
 }
+
