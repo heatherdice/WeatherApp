@@ -13,7 +13,7 @@ dayTime.innerHTML = `${day} ${hour}:${minutes}`;
 
 // when entering city into search bar, show city above day & time
 function changeCity(event) {
-    event.preventDefault();
+    event.preventDefault(); // prevents page from reloading
     let cityInput = document.querySelector("#form-input");
     let currentCity = document.querySelector("#current-city");
     if(cityInput.value) {
@@ -48,7 +48,7 @@ axios.get(apiURL(city)).then(cityTemp);
 
 // get current city name and temp
 function getCurrentCity(event) {
-    event.preventDefault();
+    event.preventDefault(); // prevents page from reloading
     navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
