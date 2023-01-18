@@ -37,6 +37,7 @@ function cityTemp(response) {
     let temp = Number(Math.round(response.data.main.temp));
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = `${temp}`;
+    celsiusTemp = response.data.main.temp;
     document.querySelector("#current-city").innerHTML = response.data.name;
     document.querySelector("#description").innerHTML = response.data.weather[0].description;
     document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
@@ -61,6 +62,18 @@ let form2 = document.querySelector("#search-current");
 form2.addEventListener("click", getCurrentCity);
 
 
+// convert temp to fahrenheit
+function displayFahrenheit(event) {
+    event.preventDefault();
+    let conversion = (celsiusTemp * (9/5)) + 32;
+    document.querySelector("#current-temp").innerHTML = Math.round(conversion);
+}
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+let celsiusTemp = null; // provides global variable able to be accessed from multiple functions
+
+
 /* display temperature, convert temp by clicking C and F 
 no, I didn't have to do a conversion, but I wanted to */
 // function fahrenheit() {
@@ -68,15 +81,15 @@ no, I didn't have to do a conversion, but I wanted to */
 //     let conversion = (temp * (9/5)) + 32;
 //     document.querySelector("#current-temp").innerHTML = conversion.toFixed(1);
 // }
-// function celcius() {
+// function celsius() {
 //     let temp = Number(document.querySelector("#current-temp").innerHTML);
 //     let conversion = (temp - 32) * 5/9;
 //     document.querySelector("#current-temp").innerHTML = conversion.toFixed(1);
 // }
 // let fTemp = document.querySelector("#fahrenheit");
-// let cTemp = document.querySelector("#celcius");
+// let cTemp = document.querySelector("#celsius");
 // fTemp.addEventListener("click", fahrenheit);
-// cTemp.addEventListener("click", celcius);
+// cTemp.addEventListener("click", celsius);
 
 /* FUTURE TEST CASE: toggle between F & C so that only one shows on the page. 
 That way, temp isn't arbitrarily converted every time C & F are clicked. */
