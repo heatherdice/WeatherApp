@@ -61,7 +61,6 @@ function getCurrentCity(event) {
 let form2 = document.querySelector("#search-current");
 form2.addEventListener("click", getCurrentCity);
 
-
 // convert temp to fahrenheit
 function displayFahrenheit(event) {
     event.preventDefault();
@@ -80,24 +79,3 @@ function displayCelsius(event) {
 }
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsius);
-
-
-/* display temperature, convert temp by clicking C and F 
-no, I didn't have to do a conversion, but I wanted to */
-// function fahrenheit() {
-//     let temp = Number(document.querySelector("#current-temp").innerHTML);
-//     let conversion = (temp * (9/5)) + 32;
-//     document.querySelector("#current-temp").innerHTML = conversion.toFixed(1);
-// }
-// function celsius() {
-//     let temp = Number(document.querySelector("#current-temp").innerHTML);
-//     let conversion = (temp - 32) * 5/9;
-//     document.querySelector("#current-temp").innerHTML = conversion.toFixed(1);
-// }
-// let fTemp = document.querySelector("#fahrenheit");
-// let cTemp = document.querySelector("#celsius");
-// fTemp.addEventListener("click", fahrenheit);
-// cTemp.addEventListener("click", celsius);
-
-/* FUTURE TEST CASE: toggle between F & C so that only one shows on the page. 
-That way, temp isn't arbitrarily converted every time C & F are clicked. */
