@@ -28,23 +28,32 @@
                         </form>
 
                         <ul class="lead px-3 list-unstyled">
-                            <li class="display-5" id="current-city">Philadelphia</li>
-                            <li class="fs-2">Last updated: <span id="day"></span></li>
+                            <li class="display-5" id="current-city"></li>
+                            <li class="fs-3">Last updated: <span id="day"></span></li>
                             <li class="fs-3" id="description"></li>
                         </ul>
 
-                        <dl class="row px-3 fs-4">
-                            <dt class="col-sm-3">
-                                <span id="current-temp">3.0</span>° 
-                                <span id="celcius">C</span> | 
-                                <span id="fahrenheit">F</span>
-                            </dt>
-                            <dd class="col-sm-9">
-                                Humidity: <span id="humidity"></span>%
-                                <br>
-                                Wind: <span id="wind"></span> km/h
-                            </dd>
-                        </dl>
+                        <div class="row px-3 pb-4">
+                            <div class="col-3 d-flex px-0">
+                                <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="weather icon">
+                                <strong class="display-3 ps-xl-2"><span id="current-temp"></span>°</strong>
+                                <p class="fs-4 px-xl-3">
+                                    <span id="celcius">C</span> | 
+                                    <span id="fahrenheit">F</span>
+                                </p>
+                            </div>
+
+                            <div class="col-9 fs-4 ps-5">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        Humidity: <span id="humidity"></span>%
+                                    </li>
+                                    <li>
+                                        Wind: <span id="wind"></span> km/h
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <div class="container week text-center fs-4">
                             <ul class="list-inline row">
