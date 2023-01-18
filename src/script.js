@@ -73,6 +73,14 @@ fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 let celsiusTemp = null; // provides global variable able to be accessed from multiple functions
 
+// convert temp to celsius
+function displayCelsius(event) {
+    event.preventDefault();
+    document.querySelector("#current-temp").innerHTML = Math.round(celsiusTemp);
+}
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", displayCelsius);
+
 
 /* display temperature, convert temp by clicking C and F 
 no, I didn't have to do a conversion, but I wanted to */
