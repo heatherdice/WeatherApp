@@ -24,7 +24,7 @@ function changeCity(event) {
         alert("Please enter a city.");
     }
 }
-let form = document.querySelector("#button-addon2");
+let form = document.querySelector("#search");
 form.addEventListener("click", changeCity);
 
 // return apiURL
@@ -57,7 +57,7 @@ function getCurrentCity(event) {
         
     }, err => console.log(err))
 }
-let form2 = document.querySelector("#button-addon");
+let form2 = document.querySelector("#search-current");
 form2.addEventListener("click", getCurrentCity);
 
 
