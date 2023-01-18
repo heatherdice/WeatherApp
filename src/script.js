@@ -64,6 +64,8 @@ form2.addEventListener("click", getCurrentCity);
 // convert temp to fahrenheit
 function displayFahrenheit(event) {
     event.preventDefault();
+    celsiusLink.classList.remove("active"); // remove active class from celsius link
+    fahrenheitLink.classList.add("active"); // add active class on fahrenheit link
     let conversion = (celsiusTemp * (9/5)) + 32;
     document.querySelector("#current-temp").innerHTML = Math.round(conversion);
 }
@@ -75,6 +77,8 @@ let celsiusTemp = null; // provides global variable able to be accessed from mul
 // convert temp to celsius
 function displayCelsius(event) {
     event.preventDefault();
+    fahrenheitLink.classList.remove("active");
+    celsiusLink.classList.add("active");
     document.querySelector("#current-temp").innerHTML = Math.round(celsiusTemp);
 }
 let celsiusLink = document.querySelector("#celsius");

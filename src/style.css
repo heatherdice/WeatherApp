@@ -14,3 +14,7 @@ li:first-letter {
     text-transform: capitalize;
 }
 
+.city-temp .active {
+    color: black;
+    cursor: default;
+}
