@@ -3,13 +3,13 @@ let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b";
 let city = "Philadelphia";
 
 // form enter behavior
-let input = document.getElementById("form-input");
-input.addEventListener("keypress", function(event) {
-    if(event.key === "Enter") {
-        event.preventDefault();
-    }
-    document.getElementById("search").click();
-})
+// let input = document.getElementById("form-input");
+// input.addEventListener("keypress", function(event) {
+//     if(event.key === "Enter") {
+//         event.preventDefault();
+//     }
+//     document.getElementById("search").click();
+// })
 
 // display current day and time
 let now = new Date();
