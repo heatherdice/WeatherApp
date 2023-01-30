@@ -27,7 +27,7 @@
                             <button class="btn btn-outline-secondary fs-5" type="button" id="search-current">Current</button>
                         </form>
 
-                        <ul class="lead px-3 list-unstyled">
+                        <ul class="lead px-3 list-unstyled opacity-75">
                             <li class="display-5" id="current-city"></li>
                             <li class="fs-3">Last updated: <span id="day"></span></li>
                             <li class="fs-3" id="description"></li>
@@ -54,8 +54,12 @@
                                 </ul>
                             </div>
                         </div>
+                        
+                        <!-- code from SheCodes vid -->
+                        <div class="weather-forecast text-center fs-4" id="forecast"></div>
 
-                        <div class="container week text-center fs-4">
+                        <!-- code that I created for hard coded forecast -->
+                        <!-- <div class="container week text-center fs-4">
                             <ul class="list-inline row">
                                 <li class="list-inline-item col">Tue</li>
                                 <li class="list-inline-item col">Wed</li>
@@ -75,18 +79,37 @@
                             </ul>    
 
                             <ul class="list-inline row">
-                                <li class="list-inline-item col">6°</li>
-                                <li class="list-inline-item col">12°</li>
-                                <li class="list-inline-item col">12°</li>
-                                <li class="list-inline-item col">12°</li>
-                                <li class="list-inline-item col">8°</li>
-                                <li class="list-inline-item col">10°</li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">6°</span>
+                                    <span class="low-temp opacity-75" >0°</span>
+                                </li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">9°</span>
+                                    <span class="low-temp opacity-75" >-2°</span>
+                                </li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">8°</span>
+                                    <span class="low-temp opacity-75" >-1°</span>
+                                </li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">3°</span>
+                                    <span class="low-temp opacity-75" >-3°</span>
+                                </li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">8°</span>
+                                    <span class="low-temp opacity-75" >-3°</span>
+                                </li>
+                                <li class="list-inline-item col">
+                                    <span class="high-temp">6°</span>
+                                    <span class="low-temp opacity-75" >-2°</span>
+                                </li>
                             </ul>
-                        </div>
+                        </div> -->
 
                     </div>
 
                 </div>
+                <div>
                     <p class="mt-3"><a href="https://github.com/heatherdice/WeatherApp">Open Source Code</a> by Heather Dice</p>
                 </div>
             </div>

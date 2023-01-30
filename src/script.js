@@ -1,5 +1,6 @@
 // API info
-let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b";
+// let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b";
+let apiKey = "335d26daoc39f096bf1t1b45c4c341e4";
 let city = "Philadelphia";
 
 // form enter behavior
@@ -38,20 +39,28 @@ form.addEventListener("click", changeCity);
 
 // return apiURL
 function apiURL(city) {
-    return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    // return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 }
 
 // display current icon, temp, name, description, humidity of city
 function cityTemp(response) {
-    let temp = Number(Math.round(response.data.main.temp));
+    // let temp = Number(Math.round(response.data.main.temp));
+    let temp = Number(Math.round(response.data.temperature.current));
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = `${temp}`;
-    celsiusTemp = response.data.main.temp;
-    document.querySelector("#current-city").innerHTML = response.data.name;
-    document.querySelector("#description").innerHTML = response.data.weather[0].description;
-    document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-    document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
-    document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+    // celsiusTemp = response.data.main.temp;
+    celsiusTemp = response.data.temperature.current;
+    // document.querySelector("#current-city").innerHTML = response.data.name;
+    document.querySelector("#current-city").innerHTML = response.data.city;
+    // document.querySelector("#description").innerHTML = response.data.weather[0].description;
+    document.querySelector("#description").innerHTML = response.data.condition.description;
+    // document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+    document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
+    // document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
+    document.querySelector("#icon").setAttribute("alt", response.data.condition.icon);
+    // document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+    document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
 }
 axios.get(apiURL(city)).then(cityTemp);
@@ -62,7 +71,8 @@ function getCurrentCity(event) {
     navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-        let apiLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        // let apiLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        let apiLatLon = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
         axios.get(apiLatLon).then(cityTemp);
         
     }, err => console.log(err))
@@ -92,3 +102,33 @@ function displayCelsius(event) {
 }
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", displayCelsius);
+
+// display forecast days, icons, & temps (high & low)
+function displayForecast() {
+    let forecastElement = document.querySelector("#forecast");
+    let forecastHTML = `<div class="row">`;
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    days.forEach(function(day) {
+        forecastHTML = 
+        forecastHTML + 
+        `
+            <div class="col">
+                <div class="weather-forecast-date">${day}</div>
+                <!-- <img src="http://openweathermap.org/img/wn/03d@2x.png" alt="weather icon" width="42"> -->
+                <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" alt="weather icon" width="42">
+                <div class="weather-forecast-temperatures">
+                    <span class="weather-forecast-temperature-max">
+                        18°
+                    </span>
+                    <span class="weather-forecast-temperature-min opacity-75">
+                        12°
+                    </span>
+                </div>
+            </div>
+        `;
+    })
+    forecastHTML = forecastHTML + `</div>`;
+    forecastElement.innerHTML = forecastHTML;
+}
+displayForecast();
+
