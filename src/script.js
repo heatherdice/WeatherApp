@@ -1,7 +1,13 @@
 // API info
-// let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b";
+// let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b"; (Open Weather API)
 let apiKey = "335d26daoc39f096bf1t1b45c4c341e4";
 let city = "Philadelphia";
+
+// return apiURL
+function apiURL(city) {
+    // return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`; (Open Weather API)
+    return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+}
 
 // form enter behavior
 let input = document.getElementById("form-input");
@@ -11,15 +17,6 @@ input.addEventListener("keypress", function(event) {
         document.getElementById("search").click();
     }
 })
-
-// display current day and time
-let now = new Date();
-let dayTime = document.querySelector("#day");
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let day = days[now.getDay()];
-let hour = now.getHours();
-let minutes = String(now.getMinutes()).padStart(2, '0');
-dayTime.innerHTML = `${day} ${hour}:${minutes}`;
 
 // when entering city into search bar, show city above day & time
 function changeCity(event) {
@@ -37,10 +34,19 @@ function changeCity(event) {
 let form = document.querySelector("#search");
 form.addEventListener("click", changeCity);
 
-// return apiURL
-function apiURL(city) {
-    // return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+// display current day and time
+let now = new Date();
+let dayTime = document.querySelector("#day");
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let day = days[now.getDay()];
+let hour = now.getHours();
+let minutes = String(now.getMinutes()).padStart(2, '0');
+dayTime.innerHTML = `${day} ${hour}:${minutes}`;
+
+// forecast based on city coordinates
+function getForecast(coordinates) {
+    let apiForecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=imperial`;
+    axios.get(apiForecastUrl).then(displayForecast);
 }
 
 // display current icon, temp, name, description, humidity of city
@@ -62,6 +68,7 @@ function cityTemp(response) {
     // document.querySelector("#humidity").innerHTML = response.data.main.humidity;
     document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
+    getForecast(response.data.coordinates);
 }
 axios.get(apiURL(city)).then(cityTemp);
 
@@ -104,7 +111,8 @@ fahrenheitLink.addEventListener("click", displayFahrenheit);
 let fahrenheitTemp = null; // provides global variable able to be accessed from multiple functions
 
 // display forecast days, icons, & temps (high & low)
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response.data);
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
     days.forEach(function(day) {
@@ -129,5 +137,4 @@ function displayForecast() {
     forecastHTML = forecastHTML + `</div>`;
     forecastElement.innerHTML = forecastHTML;
 }
-displayForecast();
 
