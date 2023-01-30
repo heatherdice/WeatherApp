@@ -40,7 +40,7 @@ form.addEventListener("click", changeCity);
 // return apiURL
 function apiURL(city) {
     // return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
 }
 
 // display current icon, temp, name, description, humidity of city
@@ -50,7 +50,7 @@ function cityTemp(response) {
     let currentTemp = document.querySelector("#current-temp");
     currentTemp.innerHTML = `${temp}`;
     // celsiusTemp = response.data.main.temp;
-    celsiusTemp = response.data.temperature.current;
+    fahrenheitTemp = response.data.temperature.current;
     // document.querySelector("#current-city").innerHTML = response.data.name;
     document.querySelector("#current-city").innerHTML = response.data.city;
     // document.querySelector("#description").innerHTML = response.data.weather[0].description;
@@ -72,7 +72,7 @@ function getCurrentCity(event) {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
         // let apiLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-        let apiLatLon = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
+        let apiLatLon = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=imperial`;
         axios.get(apiLatLon).then(cityTemp);
         
     }, err => console.log(err))
@@ -80,34 +80,33 @@ function getCurrentCity(event) {
 let form2 = document.querySelector("#search-current");
 form2.addEventListener("click", getCurrentCity);
 
+// convert temp to celsius
+function displayCelsius(event) {
+    event.preventDefault();
+    fahrenheitLink.classList.remove("active"); // remove active class from fahrenheit link
+    celsiusLink.classList.add("active"); // add active class to celsius link
+    let conversion = ((fahrenheitTemp-32) * 5/9);
+    document.querySelector("#current-temp").innerHTML = Math.round(conversion);
+}
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", displayCelsius);
+
 // convert temp to fahrenheit
 function displayFahrenheit(event) {
     event.preventDefault();
-    celsiusLink.classList.remove("active"); // remove active class from celsius link
-    fahrenheitLink.classList.add("active"); // add active class on fahrenheit link
-    let conversion = (celsiusTemp * (9/5)) + 32;
-    document.querySelector("#current-temp").innerHTML = Math.round(conversion);
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active");
+    document.querySelector("#current-temp").innerHTML = Math.round(fahrenheitTemp);
 }
 let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", displayFahrenheit);
 
-let celsiusTemp = null; // provides global variable able to be accessed from multiple functions
-
-// convert temp to celsius
-function displayCelsius(event) {
-    event.preventDefault();
-    fahrenheitLink.classList.remove("active");
-    celsiusLink.classList.add("active");
-    document.querySelector("#current-temp").innerHTML = Math.round(celsiusTemp);
-}
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsius);
+let fahrenheitTemp = null; // provides global variable able to be accessed from multiple functions
 
 // display forecast days, icons, & temps (high & low)
 function displayForecast() {
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     days.forEach(function(day) {
         forecastHTML = 
         forecastHTML + 
