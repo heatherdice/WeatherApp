@@ -70,6 +70,7 @@ function cityTemp(response) {
     document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
     document.querySelector("#icon").setAttribute("alt", response.data.condition.icon);
     document.querySelector("#current-temp").innerHTML = Number(Math.round(response.data.temperature.current));
+    fahrenheitTemp = response.data.temperature.current;
     document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     getForecast(response.data.coordinates);
