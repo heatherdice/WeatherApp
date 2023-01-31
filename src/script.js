@@ -95,25 +95,25 @@ let form2 = document.querySelector("#search-current");
 form2.addEventListener("click", getCurrentCity);
 
 // convert temp to celsius
-function displayCelsius(event) {
-    event.preventDefault();
-    fahrenheitLink.classList.remove("active"); // remove active class from fahrenheit link
-    celsiusLink.classList.add("active"); // add active class to celsius link
-    let conversion = ((fahrenheitTemp-32) * 5/9);
-    document.querySelector("#current-temp").innerHTML = Math.round(conversion);
-}
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsius);
+// function displayCelsius(event) {
+//     event.preventDefault();
+//     fahrenheitLink.classList.remove("active"); // remove active class from fahrenheit link
+//     celsiusLink.classList.add("active"); // add active class to celsius link
+//     let conversion = ((fahrenheitTemp-32) * 5/9);
+//     document.querySelector("#current-temp").innerHTML = Math.round(conversion);
+// }
+// let celsiusLink = document.querySelector("#celsius");
+// celsiusLink.addEventListener("click", displayCelsius);
 
 // convert temp to fahrenheit
-function displayFahrenheit(event) {
-    event.preventDefault();
-    celsiusLink.classList.remove("active");
-    fahrenheitLink.classList.add("active");
-    document.querySelector("#current-temp").innerHTML = Math.round(fahrenheitTemp);
-}
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", displayFahrenheit);
+// function displayFahrenheit(event) {
+//     event.preventDefault();
+//     celsiusLink.classList.remove("active");
+//     fahrenheitLink.classList.add("active");
+//     document.querySelector("#current-temp").innerHTML = Math.round(fahrenheitTemp);
+// }
+// let fahrenheitLink = document.querySelector("#fahrenheit");
+// fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 // display forecast
 function displayForecast(response) {
@@ -127,15 +127,14 @@ function displayForecast(response) {
             `
                 <div class="col">
                     <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
-                    <!-- <img src="http://openweathermap.org/img/wn/03d@2x.png" alt="weather icon" width="42"> -->
                     <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png" alt="weather icon" width="42">
                     <div class="weather-forecast-temperatures">
-                        <span class="weather-forecast-temperature-max">
-                            ${Math.round(forecastDay.temperature.maximum)}°
-                        </span>
-                        <span class="weather-forecast-temperature-min opacity-75">
-                            ${Math.round(forecastDay.temperature.minimum)}°
-                        </span>
+                        <span class="weather-forecast-temperature-max" id="max-temp">
+                            ${Math.round(forecastDay.temperature.maximum)}
+                        </span>°
+                        <span class="weather-forecast-temperature-min opacity-75" id="min-temp">
+                            ${Math.round(forecastDay.temperature.minimum)}
+                        </span>°
                     </div>
                 </div>
             `;
