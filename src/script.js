@@ -7,6 +7,9 @@ function apiURL(city) {
     return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
 }
 
+// global variable for temp, can be accessed from multiple functions
+let fahrenheitTemp = null; 
+
 // form enter behavior
 let input = document.getElementById("form-input");
 input.addEventListener("keypress", function(event) {
@@ -69,8 +72,8 @@ function cityTemp(response) {
     document.querySelector("#description").innerHTML = response.data.condition.description;
     document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
     document.querySelector("#icon").setAttribute("alt", response.data.condition.icon);
-    document.querySelector("#current-temp").innerHTML = Number(Math.round(response.data.temperature.current));
     fahrenheitTemp = response.data.temperature.current;
+    document.querySelector("#current-temp").innerHTML = Number(Math.round(fahrenheitTemp));
     document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     getForecast(response.data.coordinates);
@@ -111,8 +114,6 @@ function displayFahrenheit(event) {
 }
 let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", displayFahrenheit);
-
-let fahrenheitTemp = null; // provides global variable able to be accessed from multiple functions
 
 // display forecast
 function displayForecast(response) {
