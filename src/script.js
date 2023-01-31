@@ -1,11 +1,9 @@
 // API info
-// let apiKey = "2ca1d902baba2a8bf55f85b00cd5219b"; (Open Weather API)
 let apiKey = "335d26daoc39f096bf1t1b45c4c341e4";
 let city = "Philadelphia";
 
 // return apiURL
 function apiURL(city) {
-    // return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`; (Open Weather API)
     return `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
 }
 
@@ -34,14 +32,29 @@ function changeCity(event) {
 let form = document.querySelector("#search");
 form.addEventListener("click", changeCity);
 
-// display current day and time
-let now = new Date();
-let dayTime = document.querySelector("#day");
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let day = days[now.getDay()];
-let hour = now.getHours();
-let minutes = String(now.getMinutes()).padStart(2, '0');
-dayTime.innerHTML = `${day} ${hour}:${minutes}`;
+// display day & time site was last updated
+function formatDate(timestamp) {
+    let date = new Date(timestamp);
+    let hour = date.getHours();
+    if( hour < 10) {
+        hour = `${hour}`;
+    }
+    let minutes = date.getMinutes();
+    if(minutes < 10) {
+        minutes = `0${minutes}`;
+    }
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let day = days[date.getDay()];
+    return `${day} ${hour}:${minutes}`;
+}
+
+// display day in forecast
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+    let daysAbbrev = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return daysAbbrev[day];
+}
 
 // forecast based on city coordinates
 function getForecast(coordinates) {
@@ -51,21 +64,12 @@ function getForecast(coordinates) {
 
 // display current icon, temp, name, description, humidity of city
 function cityTemp(response) {
-    // let temp = Number(Math.round(response.data.main.temp));
-    let temp = Number(Math.round(response.data.temperature.current));
-    let currentTemp = document.querySelector("#current-temp");
-    currentTemp.innerHTML = `${temp}`;
-    // celsiusTemp = response.data.main.temp;
-    fahrenheitTemp = response.data.temperature.current;
-    // document.querySelector("#current-city").innerHTML = response.data.name;
     document.querySelector("#current-city").innerHTML = response.data.city;
-    // document.querySelector("#description").innerHTML = response.data.weather[0].description;
+    document.querySelector("#day").innerHTML = formatDate(response.data.time * 1000);
     document.querySelector("#description").innerHTML = response.data.condition.description;
-    // document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
-    // document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
     document.querySelector("#icon").setAttribute("alt", response.data.condition.icon);
-    // document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+    document.querySelector("#current-temp").innerHTML = Number(Math.round(response.data.temperature.current));
     document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     getForecast(response.data.coordinates);
@@ -78,7 +82,6 @@ function getCurrentCity(event) {
     navigator.geolocation.getCurrentPosition(position => {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-        // let apiLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         let apiLatLon = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=imperial`;
         axios.get(apiLatLon).then(cityTemp);
         
@@ -110,31 +113,33 @@ fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 let fahrenheitTemp = null; // provides global variable able to be accessed from multiple functions
 
-// display forecast days, icons, & temps (high & low)
+// display forecast
 function displayForecast(response) {
     console.log(response.data);
+    let forecast = response.data.daily;
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
-    days.forEach(function(day) {
-        forecastHTML = 
-        forecastHTML + 
-        `
-            <div class="col">
-                <div class="weather-forecast-date">${day}</div>
-                <!-- <img src="http://openweathermap.org/img/wn/03d@2x.png" alt="weather icon" width="42"> -->
-                <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" alt="weather icon" width="42">
-                <div class="weather-forecast-temperatures">
-                    <span class="weather-forecast-temperature-max">
-                        18°
-                    </span>
-                    <span class="weather-forecast-temperature-min opacity-75">
-                        12°
-                    </span>
+    forecast.forEach(function(forecastDay, index) {
+        if(index < 6) {
+            forecastHTML += 
+            `
+                <div class="col">
+                    <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
+                    <!-- <img src="http://openweathermap.org/img/wn/03d@2x.png" alt="weather icon" width="42"> -->
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png" alt="weather icon" width="42">
+                    <div class="weather-forecast-temperatures">
+                        <span class="weather-forecast-temperature-max">
+                            ${Math.round(forecastDay.temperature.maximum)}°
+                        </span>
+                        <span class="weather-forecast-temperature-min opacity-75">
+                            ${Math.round(forecastDay.temperature.minimum)}°
+                        </span>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
     })
-    forecastHTML = forecastHTML + `</div>`;
+    forecastHTML += `</div>`;
     forecastElement.innerHTML = forecastHTML;
 }
 
