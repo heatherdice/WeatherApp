@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
 }
 
 body {
@@ -9,6 +9,14 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+form {
+    font-size: clamp(.1rem, 2vw, 5rem); /* (min allowed font-size, font-size you always want, max allowed font-size) */
+}
+
+.weather-forecast {
+    font-size: clamp(.1rem, 2vw, 2rem);
 }
 
 li:first-letter {
