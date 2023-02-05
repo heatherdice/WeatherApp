@@ -5,9 +5,10 @@
 }
 
 body {
-    background-image: url("../images/sunny.jpg");
+    background-image: url("../images/clearSkyDay.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 li:first-letter {
