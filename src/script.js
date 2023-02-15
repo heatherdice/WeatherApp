@@ -64,7 +64,6 @@ function getForecast(coordinates) {
     let apiForecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=imperial`;
     axios.get(apiForecastUrl).then(displayForecast);
 }
-
 // display current icon, temp, name, description, humidity of city
 function cityTemp(response) {
     document.querySelector("#current-city").innerHTML = response.data.city;
@@ -77,8 +76,65 @@ function cityTemp(response) {
     document.querySelector("#humidity").innerHTML = response.data.temperature.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     getForecast(response.data.coordinates);
+    backgroundImage(response);
 }
 axios.get(apiURL(city)).then(cityTemp);
+
+// customize background image to match current weather
+function backgroundImage(response) {
+    document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
+    let iconElement = document.querySelector("#icon");
+    iconElement.setAttribute("alt", response.data.condition.icon);
+    console.log(iconElement.alt);
+    if(iconElement.alt == "broken-clouds-day") {
+        document.body.style.backgroundImage="url('../images/brokenCloudsDay.jpg')";
+    }
+    else if(iconElement.alt == "broken-clouds-night") {
+        document.body.style.backgroundImage="url('../images/brokenCloudsNight.jpg')";
+    }
+    else if(iconElement.alt == "clear-sky-day") {
+        document.body.style.backgroundImage="url('../images/clearSkyDay.jpg')";
+    }
+    else if(iconElement.alt == "clear-sky-night") {
+        document.body.style.backgroundImage="url('../images/clearSkyNight.jpg')";
+    }
+    else if(iconElement.alt == "few-clouds-day") {
+        document.body.style.backgroundImage="url('../images/fewCloudsDay.jpg')";
+    }
+    else if(iconElement.alt == "few-clouds-night") {
+        document.body.style.backgroundImage="url('../images/fewCloudsNight.jpg')";
+    }
+    else if(iconElement.alt == "mist-day") {
+        document.body.style.backgroundImage="url('../images/mistDay.jpg')";
+    }
+    else if(iconElement.alt == "mist-night") {
+        document.body.style.backgroundImage="url('../images/mistNight.jpg')";
+    }
+    else if(iconElement.alt == "rainDay") {
+        document.body.style.backgroundImage="url('../images/rainDay.jpg')";
+    }
+    else if(iconElement.alt == "rain-night") {
+        document.body.style.backgroundImage="url('../images/rainNight.jpg')";
+    }
+    else if(iconElement.alt == "scattered-clouds-day") {
+        document.body.style.backgroundImage="url('../images/scatteredCloudsNight.jpg')";
+    }
+    else if(iconElement.alt == "scattered-clouds-night") {
+        document.body.style.backgroundImage="url('../images/scatteredCloudsNight.jpg')";
+    }
+    else if(iconElement.alt == "snow-day") {
+        document.body.style.backgroundImage="url('../images/snowDay.jpg')";
+    }
+    else if(iconElement.alt == "snow-night") {
+        document.body.style.backgroundImage="url('../images/snowNight.jpg')";
+    }
+    else if(iconElement.alt == "thunderstormDay") {
+        document.body.style.backgroundImage="url('../images/thunderstormDay.jpg')";
+    }
+    else if(iconElement.alt == "thunderstorm-night") {
+        document.body.style.backgroundImage="url('../images/thunderstormNight.jpg')";
+    }
+}
 
 // get current city name and temp
 function getCurrentCity(event) {
@@ -117,7 +173,6 @@ form2.addEventListener("click", getCurrentCity);
 
 // display forecast
 function displayForecast(response) {
-    console.log(response.data);
     let forecast = response.data.daily;
     let forecastElement = document.querySelector("#forecast");
     let forecastHTML = `<div class="row">`;
@@ -143,4 +198,3 @@ function displayForecast(response) {
     forecastHTML += `</div>`;
     forecastElement.innerHTML = forecastHTML;
 }
-
