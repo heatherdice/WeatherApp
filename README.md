@@ -1,5 +1,5 @@
 # WeatherApp
-Simple weather app using OpenWeatherMap API to get real-time weather data for any location.
+Simple weather app using SheCodes Weather API and Axios to get real-time weather data for any location.
 
 Deployed via Netlify.
 
