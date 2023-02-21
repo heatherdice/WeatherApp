@@ -85,55 +85,28 @@ function backgroundImage(response) {
     document.querySelector('#icon').setAttribute("src", response.data.condition.icon_url);
     let iconElement = document.querySelector("#icon");
     iconElement.setAttribute("alt", response.data.condition.icon);
-    console.log(iconElement.alt);
-    if(iconElement.alt == "broken-clouds-day") {
-        document.body.style.backgroundImage="url('../images/brokenCloudsDay.jpg')";
+    document.body.style.backgroundImage = getImage(iconElement.alt); // calls below function & sets image to match icon
+}
+function getImage(iconElement) {
+    let iconImages = {
+        "broken-clouds-day" : "url('../images/brokenCloudsDay.jpg')",
+        "broken-clouds-night" : "url('../images/brokenCloudsNight.jpg')",
+        "clear-sky-day" : "url('../images/clearSkyDay.jpg')",
+        "clear-sky-night" : "url('../images/clearSkyNight.jpg')",
+        "few-clouds-day" : "url('../images/fewCloudsDay.jpg')",
+        "few-clouds-night" : "url('../images/fewCloudsNight.jpg')",
+        "mist-day" : "url('../images/mistDay.jpg')",
+        "mist-night" : "url('../images/mistNight.jpg')",
+        "rain-day" : "url('../images/rainDay.jpg')",
+        "rain-night" : "url('../images/rainNight.jpg')",
+        "scattered-clouds-day" : "url('../images/scatteredCloudsNight.jpg')",
+        "scattered-clouds-night" : "url('../images/scatteredCloudsNight.jpg')",
+        "snow-day" : "url('../images/snowDay.jpg')",
+        "snow-night" : "url('../images/snowNight.jpg')",
+        "thunderstorm-day" : "url('../images/thunderstormDay.jpg')",
+        "thunderstorm-night" : "url('../images/thunderstormNight.jpg')"
     }
-    else if(iconElement.alt == "broken-clouds-night") {
-        document.body.style.backgroundImage="url('../images/brokenCloudsNight.jpg')";
-    }
-    else if(iconElement.alt == "clear-sky-day") {
-        document.body.style.backgroundImage="url('../images/clearSkyDay.jpg')";
-    }
-    else if(iconElement.alt == "clear-sky-night") {
-        document.body.style.backgroundImage="url('../images/clearSkyNight.jpg')";
-    }
-    else if(iconElement.alt == "few-clouds-day") {
-        document.body.style.backgroundImage="url('../images/fewCloudsDay.jpg')";
-    }
-    else if(iconElement.alt == "few-clouds-night") {
-        document.body.style.backgroundImage="url('../images/fewCloudsNight.jpg')";
-    }
-    else if(iconElement.alt == "mist-day") {
-        document.body.style.backgroundImage="url('../images/mistDay.jpg')";
-    }
-    else if(iconElement.alt == "mist-night") {
-        document.body.style.backgroundImage="url('../images/mistNight.jpg')";
-    }
-    else if(iconElement.alt == "rainDay") {
-        document.body.style.backgroundImage="url('../images/rainDay.jpg')";
-    }
-    else if(iconElement.alt == "rain-night") {
-        document.body.style.backgroundImage="url('../images/rainNight.jpg')";
-    }
-    else if(iconElement.alt == "scattered-clouds-day") {
-        document.body.style.backgroundImage="url('../images/scatteredCloudsNight.jpg')";
-    }
-    else if(iconElement.alt == "scattered-clouds-night") {
-        document.body.style.backgroundImage="url('../images/scatteredCloudsNight.jpg')";
-    }
-    else if(iconElement.alt == "snow-day") {
-        document.body.style.backgroundImage="url('../images/snowDay.jpg')";
-    }
-    else if(iconElement.alt == "snow-night") {
-        document.body.style.backgroundImage="url('../images/snowNight.jpg')";
-    }
-    else if(iconElement.alt == "thunderstormDay") {
-        document.body.style.backgroundImage="url('../images/thunderstormDay.jpg')";
-    }
-    else if(iconElement.alt == "thunderstorm-night") {
-        document.body.style.backgroundImage="url('../images/thunderstormNight.jpg')";
-    }
+    return iconImages[iconElement];
 }
 
 // get current city name and temp
