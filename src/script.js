@@ -12,10 +12,10 @@ let fahrenheitTemp = null;
 
 // form enter behavior
 let input = document.getElementById("form-input");
-input.addEventListener("keypress", function(event) {
-    if(event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("search").click();
+input.addEventListener("keypress", function(event) { // execute function when user presses key
+    if(event.key === "Enter") { // if user presses enter
+        event.preventDefault(); // cancel default action
+        document.getElementById("search").click(); // acts the same as clicking search
     }
 })
 
@@ -99,7 +99,7 @@ function getImage(iconElement) {
         "mist-night" : "url('../images/mistNight.jpg')",
         "rain-day" : "url('../images/rainDay.jpg')",
         "rain-night" : "url('../images/rainNight.jpg')",
-        "scattered-clouds-day" : "url('../images/scatteredCloudsNight.jpg')",
+        "scattered-clouds-day" : "url('../images/scatteredCloudsDay.jpg')",
         "scattered-clouds-night" : "url('../images/scatteredCloudsNight.jpg')",
         "snow-day" : "url('../images/snowDay.jpg')",
         "snow-night" : "url('../images/snowNight.jpg')",
