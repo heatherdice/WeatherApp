@@ -99,6 +99,8 @@ function getImage(iconElement) {
         "mist-night" : "url('../images/mistNight.jpg')",
         "rain-day" : "url('../images/rainDay.jpg')",
         "rain-night" : "url('../images/rainNight.jpg')",
+        "shower-rain-day" : "url('../images/rainDay.jpg')",
+        "shower-rain-night" : "url('../images/rainNight.jpg')",
         "scattered-clouds-day" : "url('../images/scatteredCloudsDay.jpg')",
         "scattered-clouds-night" : "url('../images/scatteredCloudsNight.jpg')",
         "snow-day" : "url('../images/snowDay.jpg')",
